@@ -1,0 +1,26 @@
+
+@SERVER_URL = http://127.0.0.1:8080
+@COOKIE = LMaAy-2WDiLRcXayU7pBtCkgcqeNa1GT2Q5gVhdqRxs;;
+
+
+
+### Get all events
+GET {{SERVER_URL}}/event HTTP/1.1
+
+
+### Create event
+POST {{SERVER_URL}}/event/create HTTP/1.1
+content-type: application/json
+# Cookie: session=KpYs0FIMElhJ3PrIZscZ43JI8BxKBelCrgRj-4UigzM; Domain=localhost; HttpOnly; Path=/
+
+{
+    "name": "test event",
+    "description": "just an event",
+    "location": "123 address",
+    "event_date": "12 June 2024",
+    "date": "12 June 2024",
+    "time": "20:00 - 23:00",
+    "price": "300"
+}
+
+

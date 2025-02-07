@@ -1,0 +1,36 @@
+
+@SERVER_URL = http://127.0.0.1:8080
+@COOKIE = LMaAy-2WDiLRcXayU7pBtCkgcqeNa1GT2Q5gVhdqRxs;;
+
+
+
+### Get all events
+GET {{SERVER_URL}}/ticket HTTP/1.1
+
+
+### Create ticket
+POST {{SERVER_URL}}/ticket/create/679b48859d05b3b0328777dd HTTP/1.1
+content-type: application/json
+
+{
+
+    "attendee_name": "Njabulo MKhwanazi",
+    "attendee_email": "njabulo@email.com"
+                 
+}
+
+
+
+### Create event
+POST {{SERVER_URL}}/ticket/ HTTP/1.1
+content-type: application/json
+# Cookie: session=KpYs0FIMElhJ3PrIZscZ43JI8BxKBelCrgRj-4UigzM; Domain=localhost; HttpOnly; Path=/
+
+{
+    "name": "test event",
+    "description": "just an event",
+    "location": "123 address",
+    "event_date": "12 June 2024"
+}
+
+

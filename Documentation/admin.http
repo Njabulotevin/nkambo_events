@@ -1,0 +1,44 @@
+@SERVER_URL = http://127.0.0.1:5000
+@COOKIE = jAVPYx_pqxqRaKPOgEsoTCV2fAQKj9OAceus_B651Dw;
+
+
+GET http://127.0.0.1:5000/admin/65db287e7d2acc50956ef554 HTTP/1.1
+# Cookie: session=da8591ff-a3ec-4d74-a7fd-157d64173608; HttpOnly; Path=/
+
+### Login
+
+POST http://127.0.0.1:8080/admin/login HTTP/1.1
+content-type: application/json
+
+{
+ "email": "truddy@example.com",
+ "password": "12345678"
+}
+
+
+# {
+#  "email": "admin1@example.com",
+#  "password": "kevin_test"
+# }
+
+### register
+
+POST http://127.0.0.1:8080//admin/register HTTP/1.1
+content-type: application/json
+
+
+{
+"email": "truddy@example.com",
+"password": "12345678",
+"username": "truddy"
+}
+
+
+###test
+
+POST https://ntfy.sh/stage_nt HTTP/1.1
+content-type: application/json
+
+{
+   "msg": "Backup successful 😀"
+}

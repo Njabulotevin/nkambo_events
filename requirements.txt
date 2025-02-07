@@ -1,0 +1,10 @@
+Flask
+Flask-Session
+Flask-SQLAlchemy
+Flask-Migrate
+Python-Decouple
+Marshmallow
+PyJWT
+Bcrypt
+Pymongo
+Flask_cors
