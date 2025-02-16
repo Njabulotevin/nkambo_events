@@ -1,8 +1,8 @@
 start:
-	flask --app run run --debug --port=8080
+	flask --app run app --debug --port=8080
 
 start-production:
-	gunicorn app:run
+	gunicorn app:app
 
 setup:
 	bash setup.sh
