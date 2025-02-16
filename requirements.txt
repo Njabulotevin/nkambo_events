@@ -9,3 +9,4 @@ Bcrypt
 Pymongo
 Flask_cors
 Python-dotenv
+google-cloud-storage
