@@ -1,6 +1,9 @@
 start:
 	flask --app run run --debug --port=8080
 
+start-production:
+	flask --app run run --port=1000
+
 setup:
 	bash setup.sh
 
