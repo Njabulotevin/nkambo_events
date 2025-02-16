@@ -7,7 +7,7 @@ GET http://127.0.0.1:5000/admin/65db287e7d2acc50956ef554 HTTP/1.1
 
 ### Login
 
-POST http://127.0.0.1:8080/admin/login HTTP/1.1
+POST https://nkambo-events.onrender.com/admin/login 
 content-type: application/json
 
 {
@@ -17,7 +17,7 @@ content-type: application/json
 
 ### register
 
-POST http://127.0.0.1:8080//admin/register HTTP/1.1
+POST https://nkambo-events.onrender.com/admin/register HTTP/1.1
 content-type: application/json
 
 

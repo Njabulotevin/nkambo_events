@@ -1,10 +1,11 @@
 from pymongo.mongo_client import MongoClient
 from pymongo.server_api import ServerApi
 from decouple import config
+import os
 
 
 def get_database():
-   uri = config('DATABASE_URL')
+   uri = config("PROD_DATABASE_URL") if os.getenv("ENVIRONMENT") == "production" else config("DATABASE_URL")
    # Create a new client and connect to the server
    client = MongoClient(uri, server_api=ServerApi('1'))
 

@@ -26,7 +26,7 @@ app.register_blueprint(ticket_bp)
 
 app.config["SECRET_KEY"] = config("SECRET_KEY")
 app.config["DEBUG"] = config("DEBUG", default=False)
-app.config["DATABASE_URI"] = config("DATABASE_URL")
+app.config["DATABASE_URI"] = config("PROD_DATABASE_URL") if os.getenv("ENVIRONMENT") == "production" else config("DATABASE_URL") 
 
 
 app.config["SESSION_PERMANENT"] = False

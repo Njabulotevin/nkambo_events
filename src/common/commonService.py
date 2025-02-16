@@ -12,19 +12,26 @@ import os
 import base64
 
 
+credentials = None
 
 
-encoded_credentials = os.getenv("SERVICE_ACCOUNT_SETTINGS")
-decoded_credentials = base64.b64decode(encoded_credentials)
+if os.getenv("ENVIRONMENT") == "production":
+    encoded_credentials = os.getenv("SERVICE_ACCOUNT_SETTINGS")
+    decoded_credentials = base64.b64decode(encoded_credentials)
 
-# Save it to a temporary file
-with open('/tmp/service-account.json', 'wb') as f:
-    f.write(decoded_credentials)
+    # Save it to a temporary file
+    with open('/tmp/service-account.json', 'wb') as f:
+        f.write(decoded_credentials)
 
 
-credentials = service_account.Credentials.from_service_account_file(
-    '/tmp/service-account.json'
-)
+    credentials = service_account.Credentials.from_service_account_file(
+        '/tmp/service-account.json'
+    )
+
+else:
+     credentials = service_account.Credentials.from_service_account_file(
+        '/home/njabulo/nkambo-events-service-key.json'
+    )
 
 # Initialize Google Cloud Storage client
 client = storage.Client(credentials=credentials, project='nkambo-events-451018')
