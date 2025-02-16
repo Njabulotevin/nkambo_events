@@ -2,9 +2,10 @@ Flask
 Flask-Session
 Flask-SQLAlchemy
 Flask-Migrate
-Python-Decouple
+Python-decouple==3.3
 Marshmallow
 PyJWT
 Bcrypt
 Pymongo
 Flask_cors
+Python-dotenv

@@ -14,7 +14,6 @@ class Event:
         end_date: str,
         ticket_price: str,
         ticket_quantity: int,
-        cover_url:str
         
     ) -> None:
         self.name = name
@@ -26,7 +25,6 @@ class Event:
         self.end_date = end_date
         self.ticket_price = ticket_price
         self.ticket_quantity = ticket_quantity
-        self.cover_url = cover_url
 
     def to_dict(self):
         return {
@@ -38,8 +36,7 @@ class Event:
             "start_date": self.start_date,
             "end_date": self.end_date,
             "ticket_price": self.ticket_price,
-            "ticket_quantity": self.ticket_quantity,
-            "cover_url": self.cover_url
+            "ticket_quantity": self.ticket_quantity
         }
 
     @classmethod
@@ -52,8 +49,7 @@ class Event:
             end_time=event_data["end_time"],
             start_date=event_data["start_date"],
             end_date=event_data["end_date"],
-            ticket_quantity = event_data["ticket_quantity"],
-            cover_url = event_data["cover_url"]
+            ticket_quantity = event_data["ticket_quantity"]
         )
 
     @classmethod
@@ -69,8 +65,7 @@ class Event:
                 "start_time": event_dict["start_time"],
                 "end_time": event_dict["end_time"],
                 "ticket_price": event_dict["ticket_price"],
-                "ticket_quantity" : event_dict["ticket_quantity"],
-                "cover_url": event_dict["cover_url"]
+                "ticket_quantity" : event_dict["ticket_quantity"]
             }
         return None
 
@@ -92,8 +87,4 @@ class EventSchema(Schema):
     end_time=fields.Str(required=True)
     ticket_price=fields.Str(required=True)
     ticket_quantity=fields.Str(required=True)
-    
 
-class EventCoverSchema(Schema):
-    cover_url = fields.Str(required=True)
-    

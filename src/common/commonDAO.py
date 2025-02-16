@@ -26,13 +26,6 @@ class EventDAO(DB_Collection):
         except Exception as e:
             print(e)
             return None
-    
-    def change_cover_image(self, id, cover_url):
-        result = self.collection.update_one({"_id": ObjectId(id)}, {"$set": {"cover_url": cover_url}})
-        print("Results ", result)
-        if result.modified_count == 1:
-            return True
-        return False
  
 
     def find_by_query(self, query):

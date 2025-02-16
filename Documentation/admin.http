@@ -15,12 +15,6 @@ content-type: application/json
  "password": "12345678"
 }
 
-
-# {
-#  "email": "admin1@example.com",
-#  "password": "kevin_test"
-# }
-
 ### register
 
 POST http://127.0.0.1:8080//admin/register HTTP/1.1

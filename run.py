@@ -6,13 +6,15 @@ from src.tickets.ticketController import ticket_bp
 from decouple import config
 from flask_session import Session
 from flask_cors import CORS
-from firebase_admin import credentials, storage
-import firebase_admin
+from dotenv import load_dotenv
 
 
+
+
+load_dotenv()
 app = Flask(__name__)
-# CORS(app)
-# cors = CORS(app, resource={r"/*": {"origins": "*"}})
+CORS(app)
+cors = CORS(app, resource={r"/*": {"origins": "*"}})
 app.config["CORS_HEADERS"] = "Content-Type"
 
 
@@ -24,7 +26,7 @@ app.register_blueprint(ticket_bp)
 app.config["SECRET_KEY"] = config("SECRET_KEY")
 app.config["DEBUG"] = config("DEBUG", default=False)
 app.config["DATABASE_URI"] = config("DATABASE_URL")
-api_key = config("API_KEY")
+
 
 app.config["SESSION_PERMANENT"] = False
 app.config["SESSION_TYPE"] = "filesystem"

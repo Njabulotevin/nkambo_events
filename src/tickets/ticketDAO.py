@@ -13,41 +13,41 @@ class TicketDAO(DB_Collection):
         ticket = self.collection.find_one({"_id": ticket_id})
         return Ticket.serialize_ticket_db(ticket)
 
-    # def find_all(self):
-    #     subjects = Subject.serialize_subjects_db(self.collection.find())
-    #     return subjects
+    def find_all(self):
+        tickets = Ticket.serialize_ticket_db(self.collection.find())
+        return tickets
 
-    # def find_by_id(self, id: str):
-    #     try:
-    #         user = self.collection.find_one({"_id": ObjectId(id)})
-    #         if user:
-    #             return Subject.serialize_subject_db(user)
-    #         return None
-    #     except Exception as e:
-    #         print(e)
-    #         return None
-
-    # def add_student(self, student, subject_id):
-    #     try:
-    #         updated = self.collection.update_one(
-    #             {
-    #                 "_id": ObjectId(subject_id),
-    #             },
-    #             {"$addToSet": {"students": student}},
-    #         ).modified_count
-    #         return updated
-    #     except Exception as e:
-    #         return 0
+    def find_by_id(self, id: str):
+        try:
+            ticket = self.collection.find_one({"_id": ObjectId(id)})
+            if ticket:
+                return Tciekt.serialize_ticket_db(ticket)
+            return None
+        except Exception as e:
+            print(e)
+            return None
     
-
-    # def find_by_query(self, query):
-    #     subject = self.collection.find_one(query)
-    #     if subject:
-    #         return Subject.serialize_subject_db(subject)
-    #     return None
+    def find_by_query(self, query):
+        ticket = self.collection.find_one(query)
+        if ticket:
+            return Ticket.serialize_ticket_db(ticket)
+        return None
     
-    # def find_all_by_query(self, query):
-    #     subjects = self.collection.find(query)
-    #     if subjects:
-    #         return Subject.serialize_subjects_db(subjects)
-    #     return None
+    def redeem_ticket(self, id):
+        result = self.collection.update_one({"_id": ObjectId(id)}, {"$set": {"is_redeemed": True}})
+        print("Results ", result)
+        if result.modified_count == 1:
+            return True
+        return False
+    
+    def find_by_ticket_number(self, number):
+        ticket = self.find_by_query({"ticket_number": number})
+        if ticket:
+            return ticket
+        return None
+        
+    def find_all_by_query(self, query):
+        tickets = self.collection.find(query)
+        if tickets:
+            return Ticket.serialize_tickets_db(tickets)
+        return None

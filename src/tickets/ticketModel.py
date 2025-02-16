@@ -5,49 +5,35 @@ class Ticket:
     def __init__(
         self,
         ticket_number: str,
-        event_name: str,
-        description: str,
+        event_id: str,
         attendee_name: str,
-        email: str,
-        location: str,
-        event_time: str,
-        event_date: str,
-        ticket_price:str
+        attendee_email: str,
+        is_redeemed: bool
+        
     ) -> None:
         self.ticket_number = ticket_number
-        self.event_name = event_name
-        self.description = description
+        self.event_id = event_id
         self.attendee_name = attendee_name
         self.email = email
-        self.location = location
-        self.event_time = event_time
-        self.event_date = event_date
-        self.ticket_price = ticket_price
+        self.is_redeemed: is_redeemed
 
     def to_dict(self):
         return {
             "ticket_number": self.ticket_number,
             "event_name": self.event_name,
-            "description": self.description,
             "attendee_name": self.attendee_name,
             "attendee_email": self.email,
-            "ticket_price": self.ticket_price,
-            "location": self.location,
-            "event_time": self.event_time,
+            "is_redeemed": self.is_redeemed
         }
 
     @classmethod
     def create_ticket(cls, ticket_data):
         return cls(
             ticket_number=ticket_data['ticket_number'],  # Generate a unique ticket number
-            event_name=ticket_data["event_name"],
-            description=ticket_data["description"],
+            event_id=ticket_data["event_id"],
             attendee_name=ticket_data["attendee_name"],
-            email=ticket_data["attendee_email"],
-            location=ticket_data["location"],
-            event_date=ticket_data["event_date"],
-            event_time=ticket_data["event_time"],
-            ticket_price=ticket_data["ticket_price"]
+            attendee_nemail=ticket_data["attendee_email"],
+            is_redeemed=ticket_data["is_redeemed"]
         )
 
     @classmethod
@@ -56,14 +42,10 @@ class Ticket:
             return {
                 "_id": str(ticket_dict["_id"]),
                 "ticket_number": ticket_dict["ticket_number"],
-                "event_name": ticket_dict["event_name"],
-                "description": ticket_dict["description"],
+                "event_id": ticket_dict["event_id"],
                 "attendee_name": ticket_dict["attendee_name"],
                 "attendee_email": ticket_dict["attendee_email"],
-                "location": ticket_dict["location"],
-                "event_time": ticket_dict["event_time"],
-                "event_date": ticket_dict["event_date"],
-                "ticket_price": ticket_dict["ticket_price"],
+                "is_redeemed": ticket_dict["is_redeemed"]
             }
         return None
 

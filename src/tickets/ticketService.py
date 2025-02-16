@@ -9,6 +9,17 @@ import random
 import string
 
 
+ticketDAO = TicketDAO()
+
+
+
+def is_ticket_redeemed(ticket_number):
+    ticket = ticketDAO.find_by_ticket_number(ticket_number.upper())
+    if ticket:
+        return ticket["is_redeemed"], ticket
+    return False, None
+         
+
 def is_valid_user(email: str, password: str):
     try:
         user = get_user(email=email)

@@ -81,39 +81,6 @@ def is_admin(token):
         return "invalid"
     
 
-def is_instructor(token):
-    try:
-        decoded_payload = decode_token(token)
-        if decoded_payload:
-            role = decoded_payload["sub"]
-            if role=="instructor" or role == "admin":
-                return True
-        return False
-
-    except jwt.ExpiredSignatureError:
-        # Token has expired
-        return "expired"
-
-    except jwt.DecodeError:
-        # Token is invalid
-        return "invalid"
-
-def is_student(token):
-    try:
-        decoded_payload = decode_token(token)
-        if decoded_payload:
-            role = decoded_payload["sub"]
-            if role=="student" or role == "admin" or role=="instructor":
-                return True
-        return False
-
-    except jwt.ExpiredSignatureError:
-        # Token has expired
-        return "expired"
-
-    except jwt.DecodeError:
-        # Token is invalid
-        return "invalid"
 
     
 

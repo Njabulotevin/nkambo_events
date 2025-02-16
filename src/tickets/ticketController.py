@@ -16,10 +16,10 @@ from .ticketService import generate_ticket_number
 
 
 from utils.token import gen_token, get_user_from_token
-from middlewares.auth import instructorProtected, protectedRoute, studentProtected
+from middlewares.auth import adminProtected
 import bcrypt
 import uuid
-from .ticketService import is_valid_user, get_user
+from .ticketService import is_valid_user, get_user, is_ticket_redeemed
 from .ticketDAO import TicketDAO
 from marshmallow import ValidationError
 from pymongo import errors
@@ -38,7 +38,7 @@ def get_ticket():
 
 @ticket_bp.post("/create/<id>")
 def create_ticket(id: str):
-    # try:
+    try:
         found_event = eventDAO.find_by_id(id)
         print("event found ", found_event)
 
@@ -49,25 +49,35 @@ def create_ticket(id: str):
             ticket = ticketDAO.save_ticket(
                 {
                     "ticket_number": generate_ticket_number(found_event["name"]),
-                    "event_name": found_event["name"],
-                    "description": found_event["description"],
+                    "event_id": found_event["_id"],
                     "attendee_name": data["attendee_name"],
                     "attendee_email": data["attendee_email"],
-                    "ticket_price": found_event["price"],
-                    "location": found_event["location"],
-                    "event_date": found_event["date"],
-                    "event_time": found_event["time"]
+                    "is_redeemed": False
                 }
             )
             return good_response(ticket)
-        
-        
-        
+    
         return not_found("Event not found!")
 
-    # except Exception as e:
-    #     print(e)
-    #     return server_error()
+    except Exception as e:
+        print(e)
+        return server_error()
+
+@ticket_bp.get("/redeem/<ticket_number>")
+@adminProtected
+def redeem_ticket(ticket_number: str):
+    try:
+        is_redeemed, ticket = is_ticket_redeemed(ticket_number)
+        if ticket:
+            if is_redeemed:
+                return bad_response("Ticket already redeemed!")
+            ticketDAO.redeem_ticket(ticket["_id"])
+            return good_response({**ticket, "redeemed": True})
+        
+        return not_found("Ticket not found")
+    except Exception as e:
+        return server_error()
+    
 
 
 # @event_bp.post("/create")

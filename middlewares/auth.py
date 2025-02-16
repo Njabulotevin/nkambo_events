@@ -1,5 +1,5 @@
 from flask import session
-from utils.token import is_admin, is_allowed_role, is_instructor, is_student, is_valid_token
+from utils.token import is_admin, is_allowed_role,is_valid_token
 from utils.response import unauthorized
 from functools import wraps
 

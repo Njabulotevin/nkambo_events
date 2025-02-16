@@ -9,7 +9,7 @@ GET {{SERVER_URL}}/ticket HTTP/1.1
 
 
 ### Create ticket
-POST {{SERVER_URL}}/ticket/create/679b48859d05b3b0328777dd HTTP/1.1
+POST {{SERVER_URL}}/ticket/create/67b0b3539339f4a0b98bc932 HTTP/1.1
 content-type: application/json
 
 {
@@ -21,16 +21,8 @@ content-type: application/json
 
 
 
-### Create event
-POST {{SERVER_URL}}/ticket/ HTTP/1.1
-content-type: application/json
-# Cookie: session=KpYs0FIMElhJ3PrIZscZ43JI8BxKBelCrgRj-4UigzM; Domain=localhost; HttpOnly; Path=/
+### Redeem Ticket
+GET {{SERVER_URL}}/ticket/redeem/TE865NHP HTTP/1.1
 
-{
-    "name": "test event",
-    "description": "just an event",
-    "location": "123 address",
-    "event_date": "12 June 2024"
-}
 
 
