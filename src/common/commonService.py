@@ -8,11 +8,24 @@ from utils.token import decode_token
 from google.cloud import storage
 from datetime import timedelta
 from google.oauth2 import service_account
+import os
+import base64
+
+
+
+
+encoded_credentials = os.getenv("SERVICE_ACCOUNT_SETTINGS")
+decoded_credentials = base64.b64decode(encoded_credentials)
+
+# Save it to a temporary file
+with open('/tmp/service-account.json', 'wb') as f:
+    f.write(decoded_credentials)
 
 
 credentials = service_account.Credentials.from_service_account_file(
-    '/home/njabulo/nkambo-events-service-key.json'
+    '/tmp/service-account.json'
 )
+
 # Initialize Google Cloud Storage client
 client = storage.Client(credentials=credentials, project='nkambo-events-451018')
 
