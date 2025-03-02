@@ -38,6 +38,17 @@ def get_events():
     except Exception as e:
         print(e)
         return server_error()
+
+@event_bp.get("/<id>")
+def get_event_by_id(id:str):
+    try:
+        event = eventDAO.find_by_id(id)
+        if not event:
+            return not_found()
+        return good_response(event)
+    except Exception as e:
+        print(e)
+        return server_error()
     
 
 @event_bp.post("/cover/upload/<id>")

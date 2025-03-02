@@ -9,7 +9,7 @@ GET {{SERVER_URL}}/ticket HTTP/1.1
 
 
 ### Create ticket
-POST {{SERVER_URL}}/ticket/create/67b0b3539339f4a0b98bc932 HTTP/1.1
+POST {{SERVER_URL}}/ticket/buy/67b238877f2cb825f36e4a44 HTTP/1.1
 content-type: application/json
 
 {

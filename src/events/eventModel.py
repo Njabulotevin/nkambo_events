@@ -90,8 +90,8 @@ class EventSchema(Schema):
     end_date=fields.Str(required=True)
     start_time=fields.Str(required=True)
     end_time=fields.Str(required=True)
-    ticket_price=fields.Str(required=True)
-    ticket_quantity=fields.Str(required=True)
+    ticket_price=fields.Int(required=True)
+    ticket_quantity=fields.Int(required=True)
     
 
 class EventCoverSchema(Schema):

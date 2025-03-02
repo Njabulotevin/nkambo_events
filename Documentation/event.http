@@ -1,6 +1,6 @@
 
-# @SERVER_URL = http://127.0.0.1:8080
-@SERVER_URL = https://nkambo-events.onrender.com
+@SERVER_URL = http://127.0.0.1:8080
+# @SERVER_URL = https://nkambo-events.onrender.com
 @COOKIE = LMaAy-2WDiLRcXayU7pBtCkgcqeNa1GT2Q5gVhdqRxs;;
 
 
@@ -8,11 +8,14 @@
 ### Get all events
 GET {{SERVER_URL}}/event HTTP/1.1
 
+### Get event by ID
+GET {{SERVER_URL}}/event/67b251e2e8343edab22c3ef6 HTTP/1.1
+
 
 ### Create event
 POST {{SERVER_URL}}/event/create HTTP/1.1
 content-type: application/json
-Cookie: session=P835d1BuxbUEKvYPx_I8HzuibYujdOy1eSOfjkgFHLE; Domain=localhost; HttpOnly; Path=/
+Cookie: session=ccIci9DMWXdnt6nwH-g6iWsjZ1NJZettz09uIxc-U-g; Domain=localhost; HttpOnly; Path=/
 
 {
     "name": "test event5",
@@ -22,8 +25,8 @@ Cookie: session=P835d1BuxbUEKvYPx_I8HzuibYujdOy1eSOfjkgFHLE; Domain=localhost; H
     "end_date": "12 June 2024",
     "start_time": "20:00",
     "end_time": "20:00",
-    "ticket_price": "300",
-    "ticket_quantity": "300"
+    "ticket_price": 300,
+    "ticket_quantity": 3
 }
 
 ### Upload image

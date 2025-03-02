@@ -36,16 +36,17 @@ def get_ticket():
     return good_response({"status": "all good"})
 
 
-@ticket_bp.post("/create/<id>")
-def create_ticket(id: str):
+@ticket_bp.post("/buy/<id>")
+def buya_a_ticket(id: str):
     try:
         found_event = eventDAO.find_by_id(id)
-        print("event found ", found_event)
-
+    
         if found_event != None:
             
+            if int(found_event["ticket_quantity"]) == 0:
+                return bad_response("Event Sold out!")
+            
             data = ticketSchema.load(request.get_json())
-
             ticket = ticketDAO.save_ticket(
                 {
                     "ticket_number": generate_ticket_number(found_event["name"]),
@@ -55,6 +56,7 @@ def create_ticket(id: str):
                     "is_redeemed": False
                 }
             )
+            eventDAO.reduce_tickets(found_event["_id"])
             return good_response(ticket)
     
         return not_found("Event not found!")

@@ -14,8 +14,8 @@ import os
 
 load_dotenv()
 app = Flask(__name__)
-CORS(app)
-cors = CORS(app, resource={r"/*": {"origins": "*"}})
+# CORS(app)
+# cors = CORS(app, resource={r"/*": {"origins": "*"}})
 app.config["CORS_HEADERS"] = "Content-Type"
 
 
@@ -45,7 +45,7 @@ def after_request_func(response):
         response.headers.add("Access-Control-Allow-Headers", "Content-Type")
         response.headers.add("Access-Control-Allow-Headers", "x-csrf-token")
         response.headers.add(
-            "Access-Control-Allow-Methods", "GET, POST, OPTIONS, PUT, PATCH, DELETE"
+            "Access-Control-Allow-Methods", "POST, OPTIONS, PUT, PATCH, DELETE"
         )
         if origin:
             response.headers.add("Access-Control-Allow-Origin", origin)

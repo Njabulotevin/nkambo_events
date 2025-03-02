@@ -33,6 +33,13 @@ class EventDAO(DB_Collection):
         if result.modified_count == 1:
             return True
         return False
+    
+
+    def reduce_tickets(self, id):
+        result = self.collection.update_one({"_id": ObjectId(id)}, {"$inc": {"ticket_quantity": -1}})
+        if result.modified_count == 1:
+            return True
+        return False
  
 
     def find_by_query(self, query):
