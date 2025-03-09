@@ -33,6 +33,8 @@ app.config["SESSION_PERMANENT"] = False
 app.config["SESSION_TYPE"] = "filesystem"
 app.config["SESSION_COOKIE_DOMAIN"] = ".up.railway.app"
 app.config["SESSION_FILE_DIR"] = "./flask_session_cache"
+app.config['SESSION_COOKIE_SAMESITE'] = 'None'
+app.config['SESSION_COOKIE_SECURE'] = True
 Session(app)
 
 swagger = Swagger(app)
