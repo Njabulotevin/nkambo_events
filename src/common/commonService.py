@@ -1,9 +1,10 @@
 from supabase import create_client, Client
 import os
+from decouple import config
 
 # Initialize Supabase client
-url: str = os.environ.get("SUPABASE_URL")
-key: str = os.environ.get("SUPABASE_KEY")
+url: str = config("SUPABASE_URL")
+key: str = config("SUPABASE_KEY")
 supabase: Client = create_client(url, key)
 
 

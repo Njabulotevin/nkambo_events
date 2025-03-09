@@ -26,6 +26,8 @@ app.config["SECRET_KEY"] = config("SECRET_KEY")
 app.config["DEBUG"] = config("DEBUG", default=False)
 app.config["DATABASE_URI"] = config("PROD_DATABASE_URL") if os.getenv("ENVIRONMENT") == "production" else config(
     "DATABASE_URL")
+app.config["SUPABASE_URL"] = config("SUPABASE_URL")
+app.config["SUPABASE_KEY"] = config("SUPABASE_KEY")
 
 app.config["SESSION_PERMANENT"] = False
 app.config["SESSION_TYPE"] = "filesystem"
@@ -61,6 +63,7 @@ def after_request_func(response):
 def index():
     return render_template("index.html")
 
+application = app
 
 if __name__ == "__main__":
     # with app.app_context():
