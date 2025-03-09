@@ -8,14 +8,16 @@ class Ticket:
         event_id: str,
         attendee_name: str,
         attendee_email: str,
-        is_redeemed: bool
+        is_redeemed: bool,
+        payment_id: str
         
     ) -> None:
         self.ticket_number = ticket_number
         self.event_id = event_id
         self.attendee_name = attendee_name
-        self.email = email
+        self.attendee_email = attendee_email
         self.is_redeemed: is_redeemed
+        self.payment_id: payment_id
 
     def to_dict(self):
         return {
@@ -23,7 +25,8 @@ class Ticket:
             "event_name": self.event_name,
             "attendee_name": self.attendee_name,
             "attendee_email": self.email,
-            "is_redeemed": self.is_redeemed
+            "is_redeemed": self.is_redeemed,
+            "payment_id": self.payemnt_id
         }
 
     @classmethod
@@ -32,8 +35,9 @@ class Ticket:
             ticket_number=ticket_data['ticket_number'],  # Generate a unique ticket number
             event_id=ticket_data["event_id"],
             attendee_name=ticket_data["attendee_name"],
-            attendee_nemail=ticket_data["attendee_email"],
-            is_redeemed=ticket_data["is_redeemed"]
+            attendee_email=ticket_data["attendee_email"],
+            is_redeemed=ticket_data["is_redeemed"],
+            payment_id=ticket_data["payment_id"]
         )
 
     @classmethod
@@ -45,7 +49,8 @@ class Ticket:
                 "event_id": ticket_dict["event_id"],
                 "attendee_name": ticket_dict["attendee_name"],
                 "attendee_email": ticket_dict["attendee_email"],
-                "is_redeemed": ticket_dict["is_redeemed"]
+                "is_redeemed": ticket_dict["is_redeemed"],
+                "payment_id": ticket_dict["payment_id"]
             }
         return None
 

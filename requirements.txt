@@ -11,3 +11,6 @@ Flask_cors
 Python-dotenv
 google-cloud-storage
 gunicorn==19.7.1
+flasgger
+flask-swagger-ui
+supabase

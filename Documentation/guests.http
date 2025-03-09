@@ -1,0 +1,21 @@
+@SERVER_URL = http://127.0.0.1:8080
+@COOKIE = LMaAy-2WDiLRcXayU7pBtCkgcqeNa1GT2Q5gVhdqRxs;;
+
+
+
+### Get all events
+GET {{SERVER_URL}}/guest HTTP/1.1
+
+
+### Create guest
+POST {{SERVER_URL}}/guest HTTP/1.1
+content-type: application/json
+
+{
+
+    "name": "Njabulo MKhwanazi",
+    "occupation": "Software Developer",
+    "bio": "Exceptional Njabulo",
+    "profile_image": ""
+                 
+}

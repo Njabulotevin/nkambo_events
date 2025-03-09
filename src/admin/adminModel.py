@@ -37,3 +37,7 @@ class adminSchema(Schema):
     @property
     def _declared_fields(self):
         return super()._declared_fields | {"confirm_password": self.fields["confirm_password"]}
+
+
+class Token_validator(Schema):
+    token = fields.Str(required=True)

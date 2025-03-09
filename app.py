@@ -1,6 +1,7 @@
 from flask import Flask, make_response, render_template, request
 from src.admin.adminController import admin_bp
 from src.events.eventController import event_bp
+from src.guests.guestController import guest_bp
 from src.tickets.ticketController import ticket_bp
 
 from decouple import config
@@ -8,9 +9,7 @@ from flask_session import Session
 from flask_cors import CORS
 from dotenv import load_dotenv
 import os
-
-
-
+from flasgger import Swagger
 
 load_dotenv()
 app = Flask(__name__)
@@ -18,22 +17,23 @@ app = Flask(__name__)
 # cors = CORS(app, resource={r"/*": {"origins": "*"}})
 app.config["CORS_HEADERS"] = "Content-Type"
 
-
 app.register_blueprint(admin_bp)
 app.register_blueprint(event_bp)
 app.register_blueprint(ticket_bp)
-
+app.register_blueprint(guest_bp)
 
 app.config["SECRET_KEY"] = config("SECRET_KEY")
 app.config["DEBUG"] = config("DEBUG", default=False)
-app.config["DATABASE_URI"] = config("PROD_DATABASE_URL") if os.getenv("ENVIRONMENT") == "production" else config("DATABASE_URL") 
-
+app.config["DATABASE_URI"] = config("PROD_DATABASE_URL") if os.getenv("ENVIRONMENT") == "production" else config(
+    "DATABASE_URL")
 
 app.config["SESSION_PERMANENT"] = False
 app.config["SESSION_TYPE"] = "filesystem"
 app.config["SESSION_COOKIE_DOMAIN"] = "localhost:3000"
 app.config["SESSION_FILE_DIR"] = "./flask_session_cache"
 Session(app)
+
+swagger = Swagger(app)
 
 
 @app.after_request
@@ -64,5 +64,5 @@ def index():
 
 if __name__ == "__main__":
     # with app.app_context():
-    port = int(os.environ.get("PORT", 8080)) 
+    port = int(os.environ.get("PORT", 8080))
     app.run(debug=True, host="0.0.0.0", port=port)

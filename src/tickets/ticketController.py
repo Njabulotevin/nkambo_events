@@ -38,6 +38,7 @@ def get_ticket():
 
 @ticket_bp.post("/buy/<id>")
 def buya_a_ticket(id: str):
+
     try:
         found_event = eventDAO.find_by_id(id)
     
@@ -53,7 +54,8 @@ def buya_a_ticket(id: str):
                     "event_id": found_event["_id"],
                     "attendee_name": data["attendee_name"],
                     "attendee_email": data["attendee_email"],
-                    "is_redeemed": False
+                    "is_redeemed": False,
+                    "payment_id": None
                 }
             )
             eventDAO.reduce_tickets(found_event["_id"])
@@ -65,121 +67,77 @@ def buya_a_ticket(id: str):
         print(e)
         return server_error()
 
+@ticket_bp.get("/event/<event_id>")
+@adminProtected
+def get_event_tickets(event_id:str):
+    try:
+        tickets = ticketDAO.find_by_eventId(event_id)
+        if tickets is None:
+            return not_found("Event not found!")
+        return good_response(tickets)
+    except Exception as e:
+        return server_error()
+
 @ticket_bp.get("/redeem/<ticket_number>")
 @adminProtected
 def redeem_ticket(ticket_number: str):
+    """
+    Redeem a ticket using its ticket number
+    ---
+    parameters:
+      - in: path
+        name: ticket_number
+        description: The unique ticket number to redeem
+        required: true
+        type: string
+
+      - in: cookie
+        name: session
+        description: The session cookie used for authentication
+        required: true
+        type: string
+
+    responses:
+      200:
+        description: Ticket successfully redeemed
+        schema:
+          type: object
+          properties:
+            ticket_number:
+              type: string
+              description: The unique ticket number
+            event_id:
+              type: string
+              description: The unique identifier of the event
+            attendee_name:
+              type: string
+              description: The name of the attendee
+            attendee_email:
+              type: string
+              description: The email of the attendee
+            is_redeemed:
+              type: boolean
+              description: The updated status of the ticket (redeemed)
+
+      400:
+        description: Ticket has already been redeemed or invalid ticket number
+      404:
+        description: Ticket not found
+      500:
+        description: Internal server error
+    """
     try:
         is_redeemed, ticket = is_ticket_redeemed(ticket_number)
         if ticket:
             if is_redeemed:
-                return bad_response("Ticket already redeemed!")
+                return bad_response("Redemption failed: This ticket has already been redeemed.")
             ticketDAO.redeem_ticket(ticket["_id"])
             return good_response({**ticket, "redeemed": True})
-        
-        return not_found("Ticket not found")
+
+        return not_found("Redemption failed: Ticket not found. Please check the ticket code and try again.")
+
     except Exception as e:
         return server_error()
     
 
 
-# @event_bp.post("/create")
-# @instructorProtected
-# def register():
-#     try:
-#         data = subjectSchema.load(request.get_json())
-#         token = session["token"]
-
-#         grade = _gradeDAO.find_by_query({"grade": data["grade"]})
-
-#         if not grade:
-#             return bad_response("Grade not found!")
-
-#         user = get_user_from_token(token)
-
-#         subject = Subject.create_subject(
-#             {
-#                 "name": data["name"],
-#                 "description": data["description"],
-#                 "grade": grade["grade"],
-#                 "instructor": user["_id"],
-#             }
-#         )
-
-#         subject_in_grade = _gradeDAO.find_by_query({"subjects.name": subject.name})
-
-#         if subject_in_grade:
-#             return bad_response("Subject already exist")
-
-#         added_subject = subjectDAO.insert(subject.to_dict())
-#         grade_subject = {"_id": added_subject["_id"], "name": added_subject["name"]}
-
-#         update_grade = _gradeDAO.add_subject(data["grade"], grade_subject)
-#         return good_response(update_grade)
-
-#     except Exception as e:
-#         print(e)
-#         if isinstance(e, ValidationError):
-#             return bad_response(e.messages)
-#         elif isinstance(e, errors.DuplicateKeyError):
-#             return bad_response("Subject already exist")
-#         return server_error()
-
-
-# @event_bp.get("/<id>")
-# def get_subjects(id: str):
-#     try:
-#         subject = subjectDAO.find_by_id(id)
-#         if not subject:
-#             return not_found()
-#         return good_response(subject)
-#     except Exception as e:
-#         return server_error()
-
-
-# @event_bp.get("/")
-# def get_all_subjects():
-#     try:
-#         subjects = subjectDAO.find_all()
-#         return good_response(subjects)
-#     except Exception as e:
-#         return server_error()
-
-
-# @event_bp.post("/add/student")
-# @instructorProtected
-# def add_students():
-#     try:
-#         data = studentSubjectSchema.load(request.get_json())
-#         student = _studentDAO.find_by_id(data["student_id"])
-#         if not student:
-#             return bad_response("Student not found!")
-#         grade = _gradeDAO.find_by_query({"grade": student["student_details"]["grade"]})
-#         if not grade:
-#             return bad_response("Grade not found!")
-
-#         subject = subjectDAO.find_by_query(
-#             {"grade": grade["grade"], "name": data["subject_name"]}
-#         )
-#         if not subject:
-#             return bad_response("Subject not found!")
-#         updated_count = subjectDAO.add_student(
-#             subject_id=subject["_id"], student={"student_id": student["_id"]}
-#         )
-#         if not updated_count > 0:
-#             return bad_response("Student not added, student exit!")
-#         return good_response("Ok")
-#     except ValidationError as e:
-#         return bad_response(e.messages)
-#     except Exception as e:
-#         print("Error occurred:", str(e))
-#         return server_error()
-
-
-# @event_bp.get("/student/<id>")
-# def get_student_subject(id : str):
-#     subjects = subjectDAO.find_all_by_query({"students.student_id": id})
-#     if subjects:
-#         for subject in subjects:
-#             subject.pop("students")
-#     print(subjects)
-#     return good_response(subjects)

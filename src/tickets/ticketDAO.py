@@ -21,11 +21,14 @@ class TicketDAO(DB_Collection):
         try:
             ticket = self.collection.find_one({"_id": ObjectId(id)})
             if ticket:
-                return Tciekt.serialize_ticket_db(ticket)
+                return Ticket.serialize_ticket_db(ticket)
             return None
         except Exception as e:
             print(e)
             return None
+
+    def find_by_eventId(self, eventId):
+        return self.find_all_by_query({"event_id": eventId})
     
     def find_by_query(self, query):
         ticket = self.collection.find_one(query)
