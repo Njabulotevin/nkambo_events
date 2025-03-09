@@ -7,7 +7,7 @@ GET http://127.0.0.1:5000/admin/65db287e7d2acc50956ef554 HTTP/1.1
 
 ### Login
 
-POST https://nkambo-events.onrender.com/admin/login 
+POST https://nkamboevents-production.up.railway.app/admin/login 
 content-type: application/json
 
 {
