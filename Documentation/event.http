@@ -1,6 +1,6 @@
 
-@SERVER_URL = http://127.0.0.1:8080
-# @SERVER_URL = https://nkambo-events.onrender.com
+# @SERVER_URL = http://127.0.0.1:8080
+@SERVER_URL = https://nkambo-events.onrender.com
 @COOKIE = LMaAy-2WDiLRcXayU7pBtCkgcqeNa1GT2Q5gVhdqRxs;;
 
 
@@ -15,7 +15,7 @@ GET {{SERVER_URL}}/event/67b251e2e8343edab22c3ef6 HTTP/1.1
 ### Create event
 POST {{SERVER_URL}}/event/create HTTP/1.1
 content-type: application/json
-Cookie: session=LR4lCG954sjHa8iSI6nQv_CjWzgVlEhcS6eD53d8Pf4; Domain=localhost; HttpOnly; Path=/
+Cookie: session=fMjKpXWza0AghJV5t1-t6TCl6-t19bBPhzj8QfjhgbE; Domain=localhost; HttpOnly; Path=/
 
 {
     "name": "test event5",
@@ -56,12 +56,12 @@ Cookie: session=P835d1BuxbUEKvYPx_I8HzuibYujdOy1eSOfjkgFHLE; Domain=localhost; H
 ### add guest
 POST {{SERVER_URL}}/event/guest HTTP/1.1
 content-type: application/json
-Cookie: session=LR4lCG954sjHa8iSI6nQv_CjWzgVlEhcS6eD53d8Pf4; Domain=localhost; HttpOnly; Path=/
+Cookie: session=fMjKpXWza0AghJV5t1-t6TCl6-t19bBPhzj8QfjhgbE; Domain=localhost; HttpOnly; Path=/
 
 {
-    "event_id": "67c653c639206fa01b2cbc40",
+    "event_id": "67cdec54212fa0e00d25e70d",
     "guest": {
-        "guest_id": "67c6530c647d4bb550b9387f",
+        "guest_id": "67cdeccd212fa0e00d25e70e",
         "sessions": [
             {
                 "date": "25 June 2025",
@@ -79,6 +79,6 @@ content-type: application/json
 Cookie: session=LR4lCG954sjHa8iSI6nQv_CjWzgVlEhcS6eD53d8Pf4; Domain=localhost; HttpOnly; Path=/
 
 {
-    "event_id": "67c653c639206fa01b2cbc40",
+    "event_id": "67cdeccd212fa0e00d25e70e",
     "guest_id": "67c6530c647d4bb550b9387f"
 }

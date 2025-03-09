@@ -1,4 +1,5 @@
-@SERVER_URL = http://127.0.0.1:8080
+# @SERVER_URL = http://127.0.0.1:8080
+@SERVER_URL = https://nkambo-events.onrender.com
 @COOKIE = LMaAy-2WDiLRcXayU7pBtCkgcqeNa1GT2Q5gVhdqRxs;;
 
 
@@ -9,6 +10,7 @@ GET {{SERVER_URL}}/guest HTTP/1.1
 
 ### Create guest
 POST {{SERVER_URL}}/guest HTTP/1.1
+Cookie: session=fMjKpXWza0AghJV5t1-t6TCl6-t19bBPhzj8QfjhgbE; Domain=localhost; HttpOnly; Path=/
 content-type: application/json
 
 {
