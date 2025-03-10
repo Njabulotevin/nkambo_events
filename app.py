@@ -31,7 +31,7 @@ app.config["SUPABASE_KEY"] = config("SUPABASE_KEY")
 
 app.config["SESSION_PERMANENT"] = False
 app.config["SESSION_TYPE"] = "filesystem"
-app.config["SESSION_COOKIE_DOMAIN"] = ".nkamboevents.co.za"
+app.config["SESSION_COOKIE_DOMAIN"] = "admin.nkamboevents.co.za"
 app.config["SESSION_FILE_DIR"] = "./flask_session_cache"
 app.config['SESSION_COOKIE_SECURE'] = True
 Session(app)
